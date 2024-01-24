@@ -13,7 +13,6 @@ defineProps({
 
 <template>
   <div
-    v-if="isWatched"
     class="relative min-w-[250px] max-h-[400px] flex flex-col p-4 justify-center border border-gray-200 rounded-3xl cursor-pointer hover:shadow-lg hover:-translate-y-2 transition-all"
   >
     <img
@@ -29,7 +28,6 @@ defineProps({
         alt="krosovka"
         class="w-[250px] h-[230px] object-cover"
       />
-      <div v-else class="skeleton w-[250px] h-[150px]"></div>
       <div class="text-black">
         <div class="flex gap-2">
           <b v-if="title">{{ title }}</b>

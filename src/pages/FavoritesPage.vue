@@ -1,9 +1,13 @@
 <script setup>
 import axios from 'axios'
-import { onMounted, ref } from 'vue'
-import CardItemView from '../components/CardItemView.vue'
+import { computed, onMounted, ref } from 'vue'
+import FavoriteViewVue from '../components/FavoriteView.vue'
 
 const favoriteItems = ref([])
+
+onMounted(async () => {
+  await fetchFavorites()
+})
 
 const fetchFavorites = async () => {
   try {
@@ -15,23 +19,11 @@ const fetchFavorites = async () => {
   }
 }
 
-onMounted(async () => {
-  await fetchFavorites()
-})
+const favoriteItemsComputed = computed(() => favoriteItems.value)
 </script>
 
 <template>
   <div class="grid grid-cols-4 bl gap-4 h-[500px] overflow-y-scroll p-10" ref="parent">
-    <CardItemView
-      v-for="item in favoriteItems"
-      :key="item.id"
-      :title="item.title"
-      :imageUrl="item.image"
-      :price="item.price"
-      :onAddedFavorite="() => emit('addToFavorite', item)"
-      :onAddedCart="() => emit('addToCart', item)"
-      :isFavorite="item.isFavorite"
-      :isAdded="item.isAdded"
-    />
+    <FavoriteViewVue :favoriteItems="favoriteItemsComputed" />
   </div>
 </template>
